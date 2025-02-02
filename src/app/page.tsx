@@ -1,6 +1,6 @@
 import HomeItem from "@/components/home-item";
 import Image from "next/image";
-import ShopNowButton from "@/components/shop-now-button";
+// import ShopNowButton from "@/components/shop-now-button";
 
 export default function Home() {
   return (
