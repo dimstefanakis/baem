@@ -3,11 +3,13 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export default async function SuccessPage({
-  searchParams: { id }
+  searchParams
 }: {
-  searchParams: { id: string }
+  searchParams: Promise<{ id: string }>
 }) {
   const supabase = await createClient();
+
+  const id = (await searchParams).id
 
   const { data: purchase } = await supabase
     .from('purchases')
