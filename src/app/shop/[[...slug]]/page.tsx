@@ -84,6 +84,7 @@ export default async function ShopPage({
             <nav className="flex md:block space-x-4 md:space-x-0 md:space-y-2 overflow-x-auto pb-4 md:pb-0">
               {categories?.map((category) => (
                 <Link
+                  key={category.id}
                   href={`/shop/${category.slug}`}
                   className="block text-lg hover:underline text-black whitespace-nowrap"
                 >
