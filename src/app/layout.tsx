@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Lusitana } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css";
 import localFont from 'next/font/local'
 
@@ -42,6 +43,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${customFont.variable} ${lusitana.variable} font-custom antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
