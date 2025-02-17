@@ -23,13 +23,20 @@ export function PurchaseButton({ productId, purchaseType, children, className }:
       setLoading(true)
       
       // Get current user
-      const { data: { user } } = await supabase.auth.getUser()
+      let { data: { user } } = await supabase.auth.getUser()
+      
+      // If no user, try anonymous sign in
       if (!user) {
-        router.push('/login')
-        return
+        const { data, error } = await supabase.auth.signInAnonymously()
+        if (error) {
+          console.error('Anonymous sign in error:', error)
+          // router.push('/login')
+          return
+        }
+        user = data.user
       }
 
-      // Use the server action
+      // Use the server action with the user ID
       await checkout(productId, purchaseType, user.id)
     } catch (error) {
       console.error('Purchase error:', error)

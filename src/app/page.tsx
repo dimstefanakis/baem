@@ -3,8 +3,12 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import ScrollButton from "@/components/scroll-button";
 import ShopNowButton from "@/components/shop-now-button";
+import { createClient } from "@/lib/supabase";
 
-export default function Home() {
+export default async function Home() {
+  const supabase = createClient();
+  const { data: categories } = await supabase.from("categories").select("*");
+
   return (
     <div>
       <div className="relative h-[100dvh] w-screen">
@@ -37,11 +41,18 @@ export default function Home() {
           <ShopNowButton />
         </div>
 
-        <HomeItem imageSrc="/kkk.webp" title="KKK" />
-        <HomeItem imageSrc="/spider.webp" title="Spider" />
-        <HomeItem imageSrc="/anime.webp" title="Anime" />
-        <HomeItem imageSrc="/tramp.webp" title="Tramp" />
-        <HomeItem imageSrc="/heart.webp" title="Heart" />
+        {categories?.map((category) => {
+          const imageSrc = supabase.storage.from("Categories").getPublicUrl(category.image_url ?? "");
+
+          return (
+            <HomeItem
+              key={category.id}
+              imageSrc={imageSrc.data.publicUrl}
+              title={category.name}
+              slug={category.slug ?? ""}
+            />
+          );
+        })}
       </div>
     </div>
   );

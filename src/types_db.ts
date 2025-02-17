@@ -34,9 +34,34 @@ export type Database = {
   }
   public: {
     Tables: {
+      categories: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string | null
+          name: string
+          slug: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          name: string
+          slug?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          name?: string
+          slug?: string | null
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           additional_image_urls: string[] | null
+          category: string | null
           created_at: string
           description: string | null
           id: string
@@ -52,6 +77,7 @@ export type Database = {
         }
         Insert: {
           additional_image_urls?: string[] | null
+          category?: string | null
           created_at?: string
           description?: string | null
           id?: string
@@ -67,6 +93,7 @@ export type Database = {
         }
         Update: {
           additional_image_urls?: string[] | null
+          category?: string | null
           created_at?: string
           description?: string | null
           id?: string
@@ -80,7 +107,15 @@ export type Database = {
           stripe_product_id?: string | null
           stripe_single_price_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "products_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {

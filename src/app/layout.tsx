@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Lusitana } from "next/font/google";
 import "./globals.css";
 import localFont from 'next/font/local'
 
@@ -11,6 +11,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const lusitana = Lusitana({
+  weight: ['400', '700'],
+  subsets: ["latin"],
+  variable: "--font-lusitana",
 });
 
 // Add your custom font
@@ -33,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${customFont.variable} font-custom antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${customFont.variable} ${lusitana.variable} font-custom antialiased`}
       >
         {children}
       </body>

@@ -51,8 +51,9 @@ export function AddProductButton() {
 
       if (imageError) throw imageError
 
-      // Get the public URL
-      const imageUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/product-images/${imageData.path}`
+      // Image path
+      const imageUrl = `${imageData.path}`
+      const imageUrlPublic = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/product-images/${imageData.path}`
 
       // Create Stripe product and prices
       const response = await fetch('/api/admin/create-stripe-product', {
@@ -63,7 +64,7 @@ export function AddProductButton() {
         body: JSON.stringify({
           name: formData.get('name') as string,
           description: formData.get('description') as string,
-          images: [imageUrl],
+          images: [imageUrlPublic],
           singlePrice: parseInt(formData.get('single_price') as string) * 100,
           multiplePrice: parseInt(formData.get('multiple_price') as string) * 100,
           productId: product.id,
