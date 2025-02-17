@@ -2,12 +2,12 @@ import HomeItem from "@/components/home-item";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import ScrollButton from "@/components/scroll-button";
-// import ShopNowButton from "@/components/shop-now-button";
+import ShopNowButton from "@/components/shop-now-button";
 
 export default function Home() {
   return (
     <div>
-      <div className="relative h-screen w-screen">
+      <div className="relative h-[100dvh] w-screen">
         <Image
           src="/bg.webp"
           alt="bg"
@@ -25,15 +25,18 @@ export default function Home() {
           <Image
             src="/cross.webp"
             alt="logo"
-            className="w-[90%] md:w-[30%] shadow-md border-2 border-white shadow-inner [box-shadow:inset_0_2px_4px_rgba(0,0,0,0.4)] drop-shadow-md"
+            className="w-[90%] md:w-[25%] shadow-md border-2 border-white shadow-inner [box-shadow:inset_0_2px_4px_rgba(0,0,0,0.4)] drop-shadow-md"
             width={642}
             height={857}
           />
           <ScrollButton />
         </div>
       </div>
-      <div id="gallery-section" className="flex flex-col items-center justify-center w-full">
-        {/* <ShopNowButton /> */}
+      <div id="gallery-section" className="flex flex-col items-center justify-center w-full pt-16">
+        <div className="flex flex-col items-center justify-center w-full relative">
+          <ShopNowButton />
+        </div>
+
         <HomeItem imageSrc="/kkk.webp" title="KKK" />
         <HomeItem imageSrc="/spider.webp" title="Spider" />
         <HomeItem imageSrc="/anime.webp" title="Anime" />
