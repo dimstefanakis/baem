@@ -37,7 +37,7 @@ export function PurchaseButton({ productId, purchaseType, children, className }:
       }
 
       // Use the server action with the user ID
-      await checkout(productId, purchaseType, user.id)
+      await checkout(productId, purchaseType, user.id as string)
     } catch (error) {
       console.error('Purchase error:', error)
     } finally {
