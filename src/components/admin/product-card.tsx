@@ -8,16 +8,34 @@ import { Upload, Pencil, Trash } from "lucide-react"
 import Image from "next/image"
 import type { Database } from "@/types_db"
 import { v4 as uuidv4 } from 'uuid'
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 type Product = Database['public']['Tables']['products']['Row']
+type Category = Database['public']['Tables']['categories']['Row']
 
 export function ProductCard({ product: initialProduct }: { product: Product }) {
   const [product, setProduct] = useState(initialProduct)
+  const [categories, setCategories] = useState<Category[]>([])
+  const [selectedCategory, setSelectedCategory] = useState(product.category_id)
   const [uploading, setUploading] = useState(false)
   const supabase = createClient()
   const image = supabase.storage
     .from("product-images")
     .getPublicUrl(product.primary_image_url ?? "");
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const { data } = await supabase
+        .from('categories')
+        .select('*')
+        .order('name')
+      
+      if (data) setCategories(data)
+    }
+    
+    fetchCategories()
+  }, [])
 
   async function refreshProduct() {
     const { data } = await supabase
@@ -152,6 +170,22 @@ export function ProductCard({ product: initialProduct }: { product: Product }) {
     }
   }
 
+  async function updateCategory(categoryId: string) {
+    try {
+      await supabase
+        .from('products')
+        .update({
+          category_id: categoryId
+        })
+        .eq('id', product.id)
+
+      await refreshProduct()
+      setSelectedCategory(categoryId)
+    } catch (error) {
+      console.error('Error updating category:', error)
+    }
+  }
+
   return (
     <Card className="p-4 space-y-4">
       <div className="aspect-square relative">
@@ -183,6 +217,27 @@ export function ProductCard({ product: initialProduct }: { product: Product }) {
       <div>
         <h3 className="font-semibold">{product.name}</h3>
         <p className="text-sm text-muted-foreground">{product.description}</p>
+      </div>
+
+      <div className="mt-2">
+        <Label htmlFor={`category-${product.id}`}>Category</Label>
+        <Select
+          value={selectedCategory || ''}
+          onValueChange={updateCategory}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Select a category">
+              {categories.find(c => c.id === selectedCategory)?.name}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {categories.map((category) => (
+              <SelectItem key={category.id} value={category.id}>
+                {category.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Additional Images Gallery */}

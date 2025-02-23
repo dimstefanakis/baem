@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { LayoutDashboard, ShoppingBag, Users } from "lucide-react"
+import { LayoutDashboard, ShoppingBag, Users, Grid } from "lucide-react"
 
 const links = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/products', label: 'Products', icon: ShoppingBag },
+  { href: '/admin/categories', label: 'Categories', icon: Grid },
   { href: '/admin/customers', label: 'Customers', icon: Users },
 ]
-
 export function Sidebar() {
   return (
     <div className="w-64 bg-gray-100 p-4 space-y-4 font-sans">

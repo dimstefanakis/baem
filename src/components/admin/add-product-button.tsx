@@ -1,34 +1,46 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { createClient } from "@/lib/supabase"
 import { useRouter } from "next/navigation"
 import { Upload } from "lucide-react"
+import type { Database } from "@/types_db"
+
+type Category = Database['public']['Tables']['categories']['Row']
 
 export function AddProductButton() {
   const [open, setOpen] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const [categories, setCategories] = useState<Category[]>([])
   const router = useRouter()
-  
+  const supabase = createClient()
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const { data } = await supabase
+        .from('categories')
+        .select('*')
+        .order('name')
+      
+      if (data) setCategories(data)
+    }
+    
+    fetchCategories()
+  }, [])
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setUploading(true)
     
     try {
       const formData = new FormData(e.currentTarget)
-      const supabase = createClient()
       
-      // Handle primary image upload
-      const primaryImage = (formData.get('primary_image') as File)
-      if (!primaryImage) {
-        throw new Error('Primary image is required')
-      }
-
-      // Create product first to get the ID
+      // Add category_id to the product creation
       const { data: product, error: productError } = await supabase
         .from('products')
         .insert({
@@ -37,12 +49,19 @@ export function AddProductButton() {
           single_purchase_price: parseInt(formData.get('single_price') as string) * 100,
           multiple_purchase_price: parseInt(formData.get('multiple_price') as string) * 100,
           is_single_purchase_available: true,
-          primary_image_url: '', // Temporary, will update after upload
+          category_id: formData.get('category_id') as string,
+          primary_image_url: '',
         })
         .select()
         .single()
 
       if (productError) throw productError
+
+      // Handle primary image upload
+      const primaryImage = (formData.get('primary_image') as File)
+      if (!primaryImage) {
+        throw new Error('Primary image is required')
+      }
 
       // Upload primary image
       const { data: imageData, error: imageError } = await supabase.storage
@@ -153,6 +172,21 @@ export function AddProductButton() {
           <div>
             <Label htmlFor="multiple_price">Multiple Purchase Price ($)</Label>
             <Input id="multiple_price" name="multiple_price" type="number" required />
+          </div>
+          <div>
+            <Label htmlFor="category_id">Category</Label>
+            <Select name="category_id" required>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((category) => (
+                  <SelectItem key={category.id} value={category.id}>
+                    {category.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <Button type="submit" disabled={uploading}>
             {uploading ? 'Creating...' : 'Create Product'}
