@@ -42,7 +42,7 @@ export default async function Home() {
         </div>
 
         {categories?.map((category) => {
-          const imageSrc = supabase.storage.from("Categories").getPublicUrl(category.image_url ?? "");
+          const imageSrc = supabase.storage.from("categories").getPublicUrl(category.image_url ?? "");
 
           return (
             <HomeItem

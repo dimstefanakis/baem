@@ -3,7 +3,6 @@ import Image from "next/image";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import Link from "next/link";
-
 interface HomeItemProps {
   imageSrc: string;
   title: string;
@@ -13,7 +12,6 @@ interface HomeItemProps {
 export default function HomeItem({ imageSrc, title, slug }: HomeItemProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-
   return (
     <motion.div
       ref={ref}
