@@ -84,23 +84,26 @@ export default async function ProductPage({
 
             <div className="space-y-6">
               {/* Exclusive Ownership Option */}
-              <div className="border-2 p-6 bg-gradient-to-r from-neutral-50/50 to-stone-50/50 ">
-                <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-xl font-semibold font-lusitana">Exclusive Design Ownership</h3>
-                  <span className="bg-fuchsia-100 text-fuchsia-800 border-2 border-fuchsia-200 text-xs px-2 py-1 rounded-full">Recommended</span>
+              {product.is_single_purchase_available && (
+                <div className="border-2 p-6 bg-gradient-to-r from-neutral-50/50 to-stone-50/50 ">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-xl font-semibold font-lusitana">Exclusive Design Ownership</h3>
+                    <span className="bg-fuchsia-100 text-fuchsia-800 border-2 border-fuchsia-200 text-xs px-2 py-1 rounded-full">Recommended</span>
+                  </div>
+                  <p className="text-sm text-neutral-600 mb-3">Own this design exclusively - no one else can purchase it after you</p>
+                  <div className="text-3xl font-bold text-neutral-900 mb-2">
+                    {formatPrice((product.single_purchase_price ?? 0) / 100)}
+                  </div>
+                  <PurchaseButton
+                    productId={product.id}
+                    purchaseType="single"
+                    className="w-[200px] rounded-none"
+                    disabled={!product.is_single_purchase_available}
+                  >
+                    Buy Exclusive Rights
+                  </PurchaseButton>
                 </div>
-                <p className="text-sm text-neutral-600 mb-3">Own this design exclusively - no one else can purchase it after you</p>
-                <div className="text-3xl font-bold text-neutral-900 mb-2">
-                  {formatPrice((product.single_purchase_price ?? 0)/ 100)}
-                </div>
-                <PurchaseButton
-                  productId={product.id}
-                  purchaseType="single"
-                  className="w-[200px] rounded-none"
-                >
-                  Buy Exclusive Rights
-                </PurchaseButton>
-              </div>
+              )}
 
               {/* Standard Purchase Option */}
               <div className="p-6 border-2 border-neutral-200 shadow-sm">

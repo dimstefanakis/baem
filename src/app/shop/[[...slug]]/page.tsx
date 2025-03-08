@@ -47,12 +47,13 @@ const tattooDesigns: TattooDesign[] = [
 export default async function ShopPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string[] | undefined }>;
 }) {
   const { slug } = await params;
   const supabase = createClient();
   const { data: categories } = await supabase.from("categories").select("*");
-  const { data: products, error } = await supabase
+  
+  let query = supabase
     .from("products")
     .select(`
       *,
@@ -60,10 +61,17 @@ export default async function ShopPage({
         slug
       )
     `)
-    .eq("category_id.slug", slug);
+    .not("category", "is", null);
+    
+  // Apply category filter only if slug exists
+  if (slug && slug.length > 0) {
+    query = query.filter("category.slug", "eq", slug[0]);
+  }
+  
+  const { data: products, error } = await query;
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative font-lusitana">
       {/* Background Image */}
       <div className="fixed inset-0 w-screen h-screen -z-10">
         <Image

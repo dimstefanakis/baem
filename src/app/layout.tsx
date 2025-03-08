@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Lusitana } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css";
 import localFont from 'next/font/local'
+import { Navbar } from "@/components/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${customFont.variable} ${lusitana.variable} font-custom antialiased`}
       >
+        <Navbar />
         {children}
         <Analytics />
       </body>

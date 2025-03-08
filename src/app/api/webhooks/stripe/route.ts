@@ -1,46 +1,48 @@
-import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
-import { createClient } from '@/lib/supabase';
-import { headers } from 'next/headers';
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
+import { createClient } from "@/lib/supabase-admin";
+import { headers } from "next/headers";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(req: Request) {
   const headersList = await headers();
-  const supabase = createClient();
+  const supabase = await createClient();
   try {
     const body = await req.text();
-    const signature = headersList.get('stripe-signature')!;
-    
+    const signature = headersList.get("stripe-signature")!;
+
     const event = stripe.webhooks.constructEvent(
       body,
       signature,
-      webhookSecret
+      webhookSecret,
     );
 
-    if (event.type === 'checkout.session.completed') {
+    if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session;
-      const { productId, purchaseType } = session.metadata as { 
+      const { productId, purchaseType } = session.metadata as {
         productId: string;
-        purchaseType: 'single' | 'multiple';
+        purchaseType: "single" | "multiple";
       };
+
 
       // Update purchase record with successful payment
       await supabase
-        .from('purchases')
-        .update({ 
+        .from("purchases")
+        .update({
           stripe_session_id: session.id,
-          expires_at: purchaseType === 'multiple' ? null : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() // 7 days expiry for single purchases
+          expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            .toISOString(),
         })
-        .eq('stripe_session_id', session.id);
+        .eq("stripe_session_id", session.id);
 
       // If single purchase, mark product as unavailable
-      if (purchaseType === 'single') {
+      if (purchaseType === "single") {
         await supabase
-          .from('products')
+          .from("products")
           .update({ is_single_purchase_available: false })
-          .eq('id', productId);
+          .eq("id", productId);
       }
     }
 
@@ -48,8 +50,8 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error(err);
     return NextResponse.json(
-      { error: 'Webhook handler failed' },
-      { status: 400 }
+      { error: "Webhook handler failed" },
+      { status: 400 },
     );
   }
-} 
+}

@@ -11,9 +11,10 @@ interface PurchaseButtonProps {
   purchaseType: 'single' | 'multiple'
   children: React.ReactNode
   className?: string
+  disabled?: boolean
 }
 
-export function PurchaseButton({ productId, purchaseType, children, className }: PurchaseButtonProps) {
+export function PurchaseButton({ productId, purchaseType, children, className, disabled }: PurchaseButtonProps) {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const supabase = createClient()
@@ -51,7 +52,7 @@ export function PurchaseButton({ productId, purchaseType, children, className }:
   return (
     <Button 
       onClick={handlePurchase} 
-      disabled={loading}
+      disabled={loading || disabled}
       className={className}
     >
       {loading ? 'Processing...' : children}
