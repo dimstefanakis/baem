@@ -33,10 +33,10 @@ export default async function SuccessPage({
         <h1 className="text-3xl font-bold mb-8">Payment Processing</h1>
         <div className="bg-white p-6 rounded-lg shadow">
           <p className="mb-4">
-            We're currently processing your payment. This may take a moment to complete.
+            We&apos;re currently processing your payment. This may take a moment to complete.
           </p>
           <p className="text-sm text-gray-600">
-            You'll be able to download your files once payment is confirmed.
+            You&apos;ll be able to download your files once payment is confirmed.
           </p>
         </div>
       </div>
@@ -91,7 +91,7 @@ export default async function SuccessPage({
           </>
         ) : (
           <p className="text-amber-600">
-            We're preparing your download. Please check back in a few minutes.
+            We&apos;re preparing your download. Please check back in a few minutes.
           </p>
         )}
       </div>
