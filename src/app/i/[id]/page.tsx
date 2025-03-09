@@ -1,38 +1,38 @@
-import { createClient } from "@/lib/supabase"
-import { Button } from "@/components/ui/button"
-import { redirect } from "next/navigation"
-import Image from "next/image"
-import { PurchaseButton } from "@/components/purchase-button"
-import { formatPrice } from "@/lib/utils"
-import { Lusitana } from "next/font/google"
+import { createClient } from "@/lib/supabase";
+import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
+import Image from "next/image";
+import { PurchaseButton } from "@/components/purchase-button";
+import { formatPrice } from "@/lib/utils";
+import { Lusitana } from "next/font/google";
 
 const lusitana = Lusitana({
-  weight: ['400', '700'],
+  weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-lusitana",
-})
+});
 
 export default async function ProductPage({
-  params
+  params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }) {
-  const id = (await params).id
-  const supabase = await createClient()
+  const id = (await params).id;
+  const supabase = await createClient();
 
   const { data: product } = await supabase
-    .from('products')
-    .select('*')
-    .eq('id', id)
-    .single()
+    .from("products")
+    .select("*")
+    .eq("id", id)
+    .single();
 
   if (!product) {
-    redirect('/404')
+    redirect("/404");
   }
 
   const image = supabase.storage
-    .from('product-images')
-    .getPublicUrl(product.primary_image_url ?? "")
+    .from("product-images")
+    .getPublicUrl(product.primary_image_url ?? "");
 
   return (
     <div className="min-h-screen relative font-lusitana tracking-tight">
@@ -64,7 +64,10 @@ export default async function ProductPage({
             {product.additional_image_urls && (
               <div className="grid grid-cols-4 gap-2">
                 {product.additional_image_urls.map((url, index) => (
-                  <div key={index} className="aspect-square relative border border-gray-200 overflow-hidden bg-white">
+                  <div
+                    key={index}
+                    className="aspect-square relative border border-gray-200 overflow-hidden bg-white"
+                  >
                     <Image
                       src={url}
                       alt={`${product.name} ${index + 1}`}
@@ -79,18 +82,29 @@ export default async function ProductPage({
 
           {/* Right side - Product info */}
           <div className="space-y-6">
-            <h1 className="text-4xl font-lusitana tracking-tight">{product.name}</h1>
-            <p className="text-gray-600 font-lusitana tracking-tight">{product.description}</p>
+            <h1 className="text-4xl font-lusitana tracking-tight">
+              {product.name}
+            </h1>
+            <p className="text-gray-600 font-lusitana tracking-tight">
+              {product.description}
+            </p>
 
             <div className="space-y-6">
               {/* Exclusive Ownership Option */}
               {product.is_single_purchase_available && (
                 <div className="border-2 p-6 bg-gradient-to-r from-neutral-50/50 to-stone-50/50 ">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="text-xl font-semibold font-lusitana tracking-tight">Exclusive Design Ownership</h3>
-                    <span className="bg-fuchsia-100 text-fuchsia-800 border-2 border-fuchsia-200 text-xs px-2 py-1 rounded-full">Recommended</span>
+                    <h3 className="text-xl font-semibold font-lusitana tracking-tight">
+                      Exclusive Design Ownership
+                    </h3>
+                    <span className="bg-fuchsia-100 text-fuchsia-800 border-2 border-fuchsia-200 text-xs px-2 py-1 rounded-full">
+                      Recommended
+                    </span>
                   </div>
-                  <p className="text-sm text-neutral-600 mb-3">Own this design exclusively - no one else can purchase it after you</p>
+                  <p className="text-sm text-neutral-600 mb-3">
+                    Own this design exclusively - no one else can purchase it
+                    after you
+                  </p>
                   <div className="text-3xl font-bold text-neutral-900 mb-2">
                     {formatPrice((product.single_purchase_price ?? 0) / 100)}
                   </div>
@@ -107,8 +121,13 @@ export default async function ProductPage({
 
               {/* Standard Purchase Option */}
               <div className="p-6 border-2 border-neutral-200 shadow-sm">
-                <h3 className="text-xl font-semibold mb-2">Standard Purchase</h3>
-                <p className="text-sm text-neutral-600 mb-3">Get the design at base price - others can also purchase this design</p>
+                <h3 className="text-xl font-semibold mb-2">
+                  Standard Purchase
+                </h3>
+                <p className="text-sm text-neutral-600 mb-3">
+                  Get the design at base price - others can also purchase this
+                  design
+                </p>
                 <div className="text-3xl font-bold text-neutral-900 mb-2">
                   {formatPrice((product.multiple_purchase_price ?? 0) / 100)}
                 </div>
@@ -125,13 +144,18 @@ export default async function ProductPage({
             <div className="border-t-2 pt-6 mt-8 p-6">
               <h2 className="text-xl mb-4">Custom Requests</h2>
               <p className="text-gray-600 mb-4">
-                If you like this design and want something similar, request a custom design!
+                If you like this design and want something similar, request a
+                custom design by clicking the button below or emailing us at
+                monabaemtattoo@gmail.com!
               </p>
-              <a 
+              <a
                 href={`mailto:monabaemtattoo@gmail.com?subject=Custom Tattoo Design Request&body=Hi, I'm interested in getting a custom tattoo design similar to "${product.name}".`}
                 className="inline-block"
               >
-                <Button variant="outline" className="w-full rounded-none w-[200px]">
+                <Button
+                  variant="outline"
+                  className="w-full rounded-none w-[200px]"
+                >
                   Request Custom
                 </Button>
               </a>
@@ -140,5 +164,5 @@ export default async function ProductPage({
         </div>
       </div>
     </div>
-  )
-} 
+  );
+}
