@@ -63,19 +63,24 @@ export default async function ProductPage({
             {/* Additional images grid */}
             {product.additional_image_urls && (
               <div className="grid grid-cols-4 gap-2">
-                {product.additional_image_urls.map((url, index) => (
-                  <div
-                    key={index}
-                    className="aspect-square relative border border-gray-200 overflow-hidden bg-white"
-                  >
-                    <Image
-                      src={url}
-                      alt={`${product.name} ${index + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
+                {product.additional_image_urls.map((url, index) => {
+                  const image = supabase.storage
+                    .from("product-images")
+                    .getPublicUrl(url);
+                  return (
+                    <div
+                      key={index}
+                      className="aspect-square relative border border-gray-200 overflow-hidden bg-white"
+                    >
+                      <Image
+                        src={image.data.publicUrl}
+                        alt={`${product.name} ${index + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
