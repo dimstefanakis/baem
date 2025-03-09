@@ -68,6 +68,7 @@ export default async function ProductPage({
                           alt={`Product image ${index + 1}`}
                           width={500}
                           height={500}
+                          priority={index === 0}
                           className="object-cover rounded-md aspect-[3/4]"
                         />
                       </div>
