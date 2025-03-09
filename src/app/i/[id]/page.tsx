@@ -5,6 +5,13 @@ import Image from "next/image";
 import { PurchaseButton } from "@/components/purchase-button";
 import { formatPrice } from "@/lib/utils";
 import { Lusitana } from "next/font/google";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const lusitana = Lusitana({
   weight: ["400", "700"],
@@ -30,9 +37,7 @@ export default async function ProductPage({
     redirect("/404");
   }
 
-  const image = supabase.storage
-    .from("product-images")
-    .getPublicUrl(product.primary_image_url ?? "");
+  const images = [product.primary_image_url, ...(product.additional_image_urls || [])].filter(Boolean);
 
   return (
     <div className="min-h-screen relative font-lusitana tracking-tight">
@@ -49,35 +54,34 @@ export default async function ProductPage({
         <div className="grid md:grid-cols-2 gap-12">
           {/* Left side - Images */}
           <div className="space-y-6">
-            {/* Main image */}
-            <div className="aspect-[3/4] relative shadow-md border-2 border-white shadow-inner [box-shadow:inset_0_2px_4px_rgba(0,0,0,0.4)] drop-shadow-md">
-              <Image
-                src={image.data.publicUrl}
-                alt={product.name}
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-
-            {/* Additional images grid */}
-            {product.additional_image_urls && (
-              <div className="grid grid-cols-4 gap-2">
-                {product.additional_image_urls.map((url, index) => (
-                  <div
-                    key={index}
-                    className="aspect-square relative border border-gray-200 overflow-hidden bg-white"
-                  >
-                    <Image
-                      src={url}
-                      alt={`${product.name} ${index + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+            <Carousel className="w-full">
+              <CarouselContent>
+                {images.map((imageUrl, index) => {
+                  const image = supabase.storage
+                    .from("product-images")
+                    .getPublicUrl(imageUrl);
+                  return (
+                    <CarouselItem key={index}>
+                      <div className="p-1 h-full flex items-center justify-center">
+                        <Image
+                          src={image.data.publicUrl}
+                          alt={`Product image ${index + 1}`}
+                          width={500}
+                          height={500}
+                          className="object-cover rounded-md aspect-[3/4]"
+                        />
+                      </div>
+                    </CarouselItem>
+                  );
+                })}
+              </CarouselContent>
+              {images.length > 1 && (
+                <>
+                  <CarouselPrevious className="left-4 bg-transparent border-none" />
+                  <CarouselNext className="right-4 bg-transparent border-none" />
+                </>
+              )}
+            </Carousel>
           </div>
 
           {/* Right side - Product info */}
