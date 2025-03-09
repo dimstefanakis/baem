@@ -71,7 +71,7 @@ export default async function ShopPage({
   const { data: products, error } = await query;
 
   return (
-    <div className="min-h-screen relative font-lusitana">
+    <div className="min-h-screen relative font-lusitana tracking-tight">
       {/* Background Image */}
       <div className="fixed inset-0 w-screen h-screen -z-10">
         <Image

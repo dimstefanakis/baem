@@ -37,7 +37,7 @@ export default function ShopNowButton() {
       ref={scope}
       initial={{ opacity: 0, y: 20 }}
       viewport={{ once: true, margin: "-100px" }}
-      className="fixed bottom-16 z-50 font-lusitana"
+      className="fixed bottom-16 z-50 font-lusitana tracking-tight"
     >
       <Link href="/shop" className={`${isFixed ? "pointer-events-auto" : "pointer-events-none"}`}>
         <motion.div

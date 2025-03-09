@@ -29,7 +29,7 @@ export default async function SuccessPage({
 
   if (!isPaid) {
     return (
-      <div className="max-w-4xl mx-auto p-8 font-lusitana">
+      <div className="max-w-4xl mx-auto p-8 font-lusitana tracking-tight">
         <h1 className="text-3xl font-bold mb-8">Payment Processing</h1>
         <div className="bg-white p-6 rounded-lg shadow">
           <p className="mb-4">
@@ -70,7 +70,7 @@ export default async function SuccessPage({
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8 font-lusitana">
+    <div className="max-w-4xl mx-auto p-8 font-lusitana tracking-tight">
       <h1 className="text-3xl font-bold mb-8">Thank you for your purchase!</h1>
       <div className="bg-white p-6 rounded-lg shadow">
         <h2 className="text-xl mb-4">Download your design</h2>

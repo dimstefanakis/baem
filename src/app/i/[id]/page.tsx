@@ -35,7 +35,7 @@ export default async function ProductPage({
     .getPublicUrl(product.primary_image_url ?? "")
 
   return (
-    <div className="min-h-screen relative font-lusitana">
+    <div className="min-h-screen relative font-lusitana tracking-tight">
       <div className="fixed inset-0 w-screen h-screen -z-10">
         <Image
           src="/bg.webp"
@@ -79,15 +79,15 @@ export default async function ProductPage({
 
           {/* Right side - Product info */}
           <div className="space-y-6">
-            <h1 className="text-4xl font-lusitana">{product.name}</h1>
-            <p className="text-gray-600 font-lusitana">{product.description}</p>
+            <h1 className="text-4xl font-lusitana tracking-tight">{product.name}</h1>
+            <p className="text-gray-600 font-lusitana tracking-tight">{product.description}</p>
 
             <div className="space-y-6">
               {/* Exclusive Ownership Option */}
               {product.is_single_purchase_available && (
                 <div className="border-2 p-6 bg-gradient-to-r from-neutral-50/50 to-stone-50/50 ">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="text-xl font-semibold font-lusitana">Exclusive Design Ownership</h3>
+                    <h3 className="text-xl font-semibold font-lusitana tracking-tight">Exclusive Design Ownership</h3>
                     <span className="bg-fuchsia-100 text-fuchsia-800 border-2 border-fuchsia-200 text-xs px-2 py-1 rounded-full">Recommended</span>
                   </div>
                   <p className="text-sm text-neutral-600 mb-3">Own this design exclusively - no one else can purchase it after you</p>
