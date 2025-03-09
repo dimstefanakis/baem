@@ -127,9 +127,14 @@ export default async function ProductPage({
               <p className="text-gray-600 mb-4">
                 If you like this design and want something similar, request a custom design!
               </p>
-              <Button variant="outline" className="w-full rounded-none w-[200px]">
-                Request Custom
-              </Button>
+              <a 
+                href={`mailto:monabaemtattoo@gmail.com?subject=Custom Tattoo Design Request&body=Hi, I'm interested in getting a custom tattoo design similar to "${product.name}".`}
+                className="inline-block"
+              >
+                <Button variant="outline" className="w-full rounded-none w-[200px]">
+                  Request Custom
+                </Button>
+              </a>
             </div>
           </div>
         </div>
