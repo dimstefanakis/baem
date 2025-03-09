@@ -119,7 +119,12 @@ export default async function ShopPage({
                   .from("product-images")
                   .getPublicUrl(product.primary_image_url ?? "");
                 return (
-                  <Link href={`/i/${product.id}`} key={product.id} className="group">
+                  <Link 
+                    href={`/i/${product.id}`} 
+                    key={product.id} 
+                    className="group"
+                    prefetch={true}
+                  >
                     <div key={product.id} className="group">
                       <div className="relative aspect-[3/4] bg-transparent rounded-lg transition-all duration-300 p-1">
                         <Image
