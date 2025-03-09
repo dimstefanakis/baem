@@ -33,14 +33,13 @@ export default function ShopNowButton() {
   }, [isFixed]);
 
   return (
-      <motion.div
-        ref={scope}
-        initial={{ opacity: 0, y: 20 }}
-        viewport={{ once: true, margin: "-100px" }}
-        className="fixed bottom-16 z-50"
-      >
-      <Link href="/shop">
-
+    <motion.div
+      ref={scope}
+      initial={{ opacity: 0, y: 20 }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="fixed bottom-16 z-50 font-lusitana"
+    >
+      <Link href="/shop" className={`${isFixed ? "pointer-events-auto" : "pointer-events-none"}`}>
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
