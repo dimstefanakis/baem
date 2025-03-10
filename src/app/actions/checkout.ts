@@ -85,7 +85,6 @@ export async function checkout(
     .eq("id", purchase.id)
     .select();
 
-  console.log("data", data);
   if (error) {
     throw new Error("Failed to update purchase with session ID", {
       cause:
