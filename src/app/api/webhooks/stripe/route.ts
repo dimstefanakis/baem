@@ -65,7 +65,7 @@ export async function POST(req: Request) {
       }
     }
 
-    return NextResponse.json({ received: true });
+    return NextResponse.json({ received: true, event: event.type });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
