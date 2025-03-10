@@ -112,7 +112,7 @@ export function AddProductButton() {
       if (designAssets) {
         await supabase.storage
           .from('purchased-designs')
-          .upload(`${product.id}/design.zip`, designAssets)
+          .upload(`${product.id}/design.jpg`, designAssets)
       }
 
       setOpen(false)
@@ -155,13 +155,13 @@ export function AddProductButton() {
             </div>
           </div>
           <div>
-            <Label htmlFor="design_assets">Design Assets (ZIP)</Label>
+            <Label htmlFor="design_assets">Design Assets (JPG or PNG)</Label>
             <div className="flex gap-2">
               <Input
                 id="design_assets"
                 name="design_assets"
                 type="file"
-                accept=".zip"
+                accept=".jpg, .jpeg, .png"
               />
             </div>
           </div>

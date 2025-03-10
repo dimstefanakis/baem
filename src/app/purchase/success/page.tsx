@@ -63,7 +63,7 @@ export default async function SuccessPage({
   const { data, error } = await supabase
     .storage
     .from('purchased-designs')
-    .createSignedUrl(`${purchase.product_id}/design.zip`, expirySeconds);
+    .createSignedUrl(`${purchase.product_id}/design.jpg`, expirySeconds);
 
   if (error) {
     console.error('Error generating signed URL:', error);

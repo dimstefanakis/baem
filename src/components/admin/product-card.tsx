@@ -132,7 +132,7 @@ export function ProductCard({ product: initialProduct }: { product: Product }) {
     try {
       const { data, error } = await supabase.storage
         .from('purchased-designs')
-        .upload(`${product.id}/design.zip`, files[0])
+        .upload(`${product.id}/design.jpg`, files[0])
 
       if (error) throw error
     } catch (error) {
@@ -307,7 +307,7 @@ export function ProductCard({ product: initialProduct }: { product: Product }) {
           <input
             id={`assets-${product.id}`}
             type="file"
-            accept=".zip"
+            accept=".jpg, .jpeg, .png"
             className="hidden"
             onChange={(e) => uploadDesignAssets(e.target.files)}
           />
