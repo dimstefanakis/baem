@@ -79,10 +79,14 @@ export async function checkout(
   }
 
   // Update purchase with session ID
-  await supabase
+  const { data, error } = await supabase
     .from("purchases")
     .update({ stripe_session_id: session.id })
     .eq("id", purchase.id);
+
+  if (error) {
+    throw new Error("Failed to update purchase with session ID");
+  }
 
   redirect(session.url);
 }
