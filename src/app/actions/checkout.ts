@@ -84,6 +84,8 @@ export async function checkout(
     .update({ stripe_session_id: session.id })
     .eq("id", purchase.id);
 
+  console.log("data", data);
+  console.log("id", purchase.id);
   if (error) {
     throw new Error("Failed to update purchase with session ID");
   }
