@@ -26,9 +26,8 @@ export async function POST(req: Request) {
         purchaseType: "single" | "multiple";
       };
 
-
       // Update purchase record with successful payment
-      await supabase
+      const { data, error } = await supabase
         .from("purchases")
         .update({
           stripe_session_id: session.id,
@@ -37,12 +36,26 @@ export async function POST(req: Request) {
         })
         .eq("stripe_session_id", session.id);
 
+      if (error) {
+        console.error("Error updating purchase record:", error);
+        return NextResponse.json({ error: "Error updating purchase record" }, {
+          status: 500,
+        });
+      }
+
       // If single purchase, mark product as unavailable
       if (purchaseType === "single") {
-        await supabase
+        const { data: productData, error: productError } = await supabase
           .from("products")
           .update({ is_single_purchase_available: false })
           .eq("id", productId);
+
+        if (productError) {
+          console.error("Error updating product record:", productError);
+          return NextResponse.json({ error: "Error updating product record" }, {
+            status: 500,
+          });
+        }
       }
     }
 
