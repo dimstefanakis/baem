@@ -86,6 +86,7 @@ export async function checkout(
 
   console.log("data", data);
   console.log("id", purchase.id);
+  console.log("session", session.id);
   if (error) {
     throw new Error("Failed to update purchase with session ID");
   }
