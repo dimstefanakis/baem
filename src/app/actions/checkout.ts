@@ -83,8 +83,7 @@ export async function checkout(
     .from("purchases")
     .update({ stripe_session_id: session.id })
     .eq("id", purchase.id)
-    .select()
-    .single();
+    .select();
 
   console.log("data", data);
   if (error) {
