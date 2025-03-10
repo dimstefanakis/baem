@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 import { createClient } from "@/lib/supabase";
-
+import { Tables } from "@/types_db";
 interface TattooDesign {
   id: string;
   name: string;
@@ -51,23 +51,38 @@ export default async function ShopPage({
 }) {
   const { slug } = await params;
   const supabase = createClient();
-  
+
   let query = supabase
     .from("products")
-    .select(`
+    .select(
+      `
       *,
       category:category_id (
         slug
       )
-    `)
+    `
+    )
     .not("category", "is", null);
-    
+
   // Apply category filter only if slug exists
   if (slug && slug.length > 0) {
     query = query.filter("category.slug", "eq", slug[0]);
   }
-  
+
   const { data: products, error } = await query;
+
+  function getPrice(product: Tables<"products">) {
+    if (product.is_single_purchase_available) {
+      return formatPrice(
+        product.single_purchase_price ? product.single_purchase_price / 100 : 0
+      );
+    }
+    return formatPrice(
+      product.multiple_purchase_price
+        ? product.multiple_purchase_price / 100
+        : 0
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -76,9 +91,9 @@ export default async function ShopPage({
           .from("product-images")
           .getPublicUrl(product.primary_image_url ?? "");
         return (
-          <Link 
-            href={`/i/${product.id}`} 
-            key={product.id} 
+          <Link
+            href={`/i/${product.id}`}
+            key={product.id}
             className="group"
             prefetch={true}
           >
@@ -95,9 +110,7 @@ export default async function ShopPage({
                 <h3 className="text-lg font-medium text-black">
                   {product.name}
                 </h3>
-                <p className="text-lg text-black">
-                  {formatPrice((product.single_purchase_price || 0) / 100)}
-                </p>
+                <p className="text-lg text-black">{getPrice(product)}</p>
               </div>
             </div>
           </Link>
