@@ -88,7 +88,10 @@ export async function checkout(
 
   console.log("data", data);
   if (error) {
-    throw new Error("Failed to update purchase with session ID");
+    throw new Error("Failed to update purchase with session ID", {
+      cause:
+        `Error: ${error.message} \n Code: ${error.code} \n Details: ${error.details} \n Hint: ${error.hint}`,
+    });
   }
 
   redirect(session.url);
