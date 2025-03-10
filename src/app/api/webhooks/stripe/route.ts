@@ -38,9 +38,12 @@ export async function POST(req: Request) {
 
       if (error) {
         console.error("Error updating purchase record:", error);
-        return NextResponse.json({ error: "Error updating purchase record" }, {
-          status: 500,
-        });
+        return NextResponse.json(
+          { error: "Error updating purchase record", details: error },
+          {
+            status: 500,
+          },
+        );
       }
 
       // If single purchase, mark product as unavailable
@@ -52,9 +55,12 @@ export async function POST(req: Request) {
 
         if (productError) {
           console.error("Error updating product record:", productError);
-          return NextResponse.json({ error: "Error updating product record" }, {
-            status: 500,
-          });
+          return NextResponse.json(
+            { error: "Error updating product record", details: productError },
+            {
+              status: 500,
+            },
+          );
         }
       }
     }
