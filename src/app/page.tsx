@@ -4,6 +4,7 @@ import Image from "next/image";
 import ScrollButton from "@/components/scroll-button";
 import ShopNowButton from "@/components/shop-now-button";
 import { createClient } from "@/lib/supabase";
+import Link from "next/link";
 
 export default async function Home() {
   const supabase = createClient();
@@ -26,13 +27,15 @@ export default async function Home() {
           <h2 className="text-4xl text-center mb-10">
             Tattoo Designs
           </h2>
-          <Image
-            src="/cross.webp"
-            alt="logo"
-            className="w-[90%] md:w-[25%] shadow-md border-2 border-white shadow-inner [box-shadow:inset_0_2px_4px_rgba(0,0,0,0.4)] drop-shadow-md"
-            width={642}
-            height={857}
-          />
+          <Link href="/shop" className="w-full flex justify-center">
+            <Image
+              src="/cross.webp"
+              alt="logo"
+              className="w-[90%] md:w-[25%] shadow-md border-2 border-white shadow-inner [box-shadow:inset_0_2px_4px_rgba(0,0,0,0.4)] drop-shadow-md"
+              width={642}
+              height={857}
+            />
+          </Link>
           <ScrollButton />
         </div>
       </div>
