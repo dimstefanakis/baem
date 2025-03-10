@@ -307,7 +307,7 @@ export function ProductCard({ product: initialProduct }: { product: Product }) {
           <input
             id={`assets-${product.id}`}
             type="file"
-            accept=".jpg, .jpeg, .png"
+            accept=".jpg, .jpeg"
             className="hidden"
             onChange={(e) => uploadDesignAssets(e.target.files)}
           />

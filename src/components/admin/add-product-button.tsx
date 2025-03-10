@@ -155,13 +155,13 @@ export function AddProductButton() {
             </div>
           </div>
           <div>
-            <Label htmlFor="design_assets">Design Assets (JPG or PNG)</Label>
+            <Label htmlFor="design_assets">Design Assets (JPG)</Label>
             <div className="flex gap-2">
               <Input
                 id="design_assets"
                 name="design_assets"
                 type="file"
-                accept=".jpg, .jpeg, .png"
+                accept=".jpg, .jpeg"
               />
             </div>
           </div>
