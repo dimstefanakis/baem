@@ -46,22 +46,20 @@ export async function POST(req: Request) {
         );
       }
 
-      // If single purchase, mark product as unavailable
-      if (purchaseType === "single") {
-        const { data: productData, error: productError } = await supabase
-          .from("products")
-          .update({ is_single_purchase_available: false })
-          .eq("id", productId);
+      // mark exclusive design as unavailable
+      const { data: productData, error: productError } = await supabase
+        .from("products")
+        .update({ is_single_purchase_available: false })
+        .eq("id", productId);
 
-        if (productError) {
-          console.error("Error updating product record:", productError);
-          return NextResponse.json(
-            { error: "Error updating product record", details: productError },
-            {
-              status: 500,
-            },
-          );
-        }
+      if (productError) {
+        console.error("Error updating product record:", productError);
+        return NextResponse.json(
+          { error: "Error updating product record", details: productError },
+          {
+            status: 500,
+          },
+        );
       }
     }
 
