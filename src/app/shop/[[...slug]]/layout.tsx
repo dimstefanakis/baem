@@ -30,6 +30,7 @@ export default async function ShopLayout({
           <div className="w-full md:w-48 md:flex-shrink-0">
             <h2 className="text-2xl font-semibold mb-4 text-black">Filters</h2>
             <nav className="flex md:block space-x-4 md:space-x-0 md:space-y-2 overflow-x-auto pb-4 md:pb-0">
+              <Link href="/shop" className="block text-lg hover:underline text-black whitespace-nowrap">All</Link>
               {categories?.map((category) => (
                 <Link
                   key={category.id}
