@@ -24,7 +24,7 @@ export const generateMetadata = async ({ params }: { params: Promise<{ id: strin
   const supabase = createClient();
   const { data: product } = await supabase.from("products").select("*").eq("id", id).single();
   return {
-    title: product?.name ?? "Mona Baem - Tattoo Designs",
+    title: product?.name ? `${product?.name} - Tattoo` : "Mona Baem - Tattoo Designs",
     description: product?.description ?? "I'm Mona, a tattoo artist showcasing unique custom designs. Browse my portfolio, shop for original tattoo designs, and contact me for custom commission work.",
   };
 };
