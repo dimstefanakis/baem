@@ -1,10 +1,8 @@
 import { createClient } from "@/lib/supabase";
 import { MetadataRoute } from "next";
 
-export const revalidate = 60 * 60 * 24;
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const supabase = await createClient();
+  const supabase = createClient();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
   const { data: products, error } = await supabase
