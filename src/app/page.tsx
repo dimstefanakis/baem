@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import ScrollButton from "@/components/scroll-button";
 import ShopNowButton from "@/components/shop-now-button";
+import { BurgerMenu } from "@/components/BurgerMenu";
 import { createClient } from "@/lib/supabase";
 import Link from "next/link";
 
@@ -21,10 +22,18 @@ export default async function Home() {
           priority
         />
         <div className="relative z-10 flex flex-col items-center justify-center h-full">
+          {/* <div className="absolute top-0 right-0 pt-3 pr-4 md:pt-4 md:pr-10 z-20">
+            <BurgerMenu />
+          </div> */}
           {/* <h1 className="text-4xl font-bold">Hello World</h1>
         <p className="text-lg text-gray-500">Welcome to the home page</p> */}
-          <h1 className="text-3xl text-center mb-4">Mona Baem</h1>
-          <h2 className="text-4xl text-center mb-10">
+          <div className="flex w-full items-center justify-center absolute top-10 sm:top-4 left-0">
+            <h1 className="text-3xl text-center">Mona Baem</h1>
+            <div className="absolute right-10 flex items-center justify-center">
+              <BurgerMenu useBackground />
+            </div>
+          </div>
+          <h2 className="text-4xl text-center mb-10 mt-8">
             Tattoo Designs
           </h2>
           <Link href="/shop" className="w-full flex justify-center">
