@@ -25,9 +25,9 @@ export default function AboutPage() {
               nostalgic 2000s aesthetics and anime culture.
             </p>
             <p>
-              I design for people all around the world. I'm inspired by
+              I design for people all around the world. I&apos;m inspired by
               architecture, subcultures, internet visuals, and the power of
-              strong symbolism. Whether you're into structured linework or soft
+              strong symbolism. Whether you&apos;re into structured linework or soft
               character art, my goal is to create pieces that are personal,
               well-designed, and lasting.
             </p>
