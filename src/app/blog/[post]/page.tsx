@@ -25,8 +25,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { post: string } }) {
-  const post = getPost(params.post);
+export async function generateMetadata({ params }: { params: Promise<{ post: string }> }) {
+  const internalParams = await params;
+  const post = getPost(internalParams.post);
 
   if (!post) {
     notFound();
@@ -73,8 +74,9 @@ const renderContentBlock = (block: ContentBlock, index: number) => {
   return null;
 };
 
-export default function PostPage({ params }: { params: { post: string } }) {
-  const post = getPost(params.post);
+export default async function PostPage({ params }: { params: Promise<{ post: string }> }) {
+  const internalParams = await params;
+  const post = getPost(internalParams.post);
 
   if (!post) {
     notFound();
