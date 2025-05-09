@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { createClient } from "@/lib/supabase"
 import { checkout } from "@/app/actions/checkout"
+import { track } from "@vercel/analytics/react"
 
 interface PurchaseButtonProps {
   productId: string
@@ -22,10 +23,13 @@ export function PurchaseButton({ productId, purchaseType, children, className, d
   async function handlePurchase() {
     try {
       setLoading(true)
-      
+      track("purchase_button_clicked", {
+        productId,
+        purchaseType,
+      })
       // Get current user
       let { data: { user } } = await supabase.auth.getUser()
-      
+
       // If no user, try anonymous sign in
       if (!user) {
         const { data, error } = await supabase.auth.signInAnonymously()
@@ -38,7 +42,7 @@ export function PurchaseButton({ productId, purchaseType, children, className, d
       }
 
       // Use the server action with the user ID
-      if (!user){
+      if (!user) {
         return
       }
       await checkout(productId, purchaseType, user.id)
@@ -50,8 +54,8 @@ export function PurchaseButton({ productId, purchaseType, children, className, d
   }
 
   return (
-    <Button 
-      onClick={handlePurchase} 
+    <Button
+      onClick={handlePurchase}
       disabled={loading || disabled}
       className={className}
     >
