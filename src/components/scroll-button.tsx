@@ -14,7 +14,7 @@ export default function ScrollButton() {
     <Button
       variant={null}
       size="icon"
-      className="transform animate-bounce mt-10 p-6 px-12"
+      className="transform animate-bounce absolute bottom-1 p-6 px-12"
       onClick={scrollToGallery}
     >
       <ChevronDown style={{ width: "40px", height: "40px" }} />
