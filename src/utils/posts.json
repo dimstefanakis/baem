@@ -6,6 +6,13 @@
     "seoDescription": "Cybersigilism is one of the core design styles that defines Mona Baem's work. It blends futuristic aesthetics with sacred geometry, runic shapes, and digital-age symbolism. Think of it as a modern evolution of mystic iconography — shaped by internet culture, interface design, and tattoo linework.",
     "createdAt": "2025-05-06",
     "primaryImage": "/blog-img1.png",
+    "relatedPosts": [
+      {
+        "slug": "what-is-neo-tribal-tattoo-style",
+        "primaryImage": "/blog-img2.webp",
+        "title": "What Is Neo Tribal Tattoo Style? <br/> A Guide to the Modern Tribal Tattoo and Design"
+      }
+    ],
     "content": [
       {
         "type": "heading",
@@ -46,6 +53,98 @@
       {
         "type": "paragraph",
         "text": "For me, cybersigilism isn't just aesthetic. It's a language of symbols, and I use it to express power, identity, and the connection between the digital and physical world."
+      }
+    ]
+  },
+  {
+    "slug": "what-is-neo-tribal-tattoo-style",
+    "title": "What Is Neo Tribal Tattoo Style? <br/> A Guide to the Modern Tribal Tattoo and Design",
+    "seoTitle": "What Is Neo Tribal Tattoo Style? A Guide to Modern Tribal Tattoos",
+    "seoDescription": "Neo Tribal style is a bold, contemporary design movement that reimagines ancient tribal aesthetics through a minimalist and futuristic lens. Discover how this modern tattoo style blends ancient symbols with sharp blackwork and digital-age influences.",
+    "createdAt": "2025-05-24",
+    "primaryImage": "/blog-img2.webp",
+    "relatedPosts": [
+      {
+        "slug": "what-is-cybersigilism",
+        "primaryImage": "/blog-img1.png",
+        "title": "What Is Cybersigilism? <br/> The Tattoo Style That Defines Mona Baem"
+      }
+    ],
+    "content": [
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "What Is Neo Tribal Style?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Neo Tribal style is a bold, contemporary design movement that reimagines ancient tribal aesthetics through a minimalist and futuristic lens. A bold, graphic language that merges ancient symbols with sharp blackwork, geometry, and digital-age influences."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Modern Tribal Influence:"
+      },
+      {
+        "type": "paragraph",
+        "text": "Rooted in traditional tattoo practices like Polynesian, Native American, and African tribal art, Neo Tribal strips away cultural context to focus on form, structure, and visual flow. It's not about copying sacred symbols—it's about evolving them into something new."
+      },
+      {
+        "type": "paragraph",
+        "text": "Common features of Neo Tribal design include:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Heavy blackwork and stark contrast",
+          "Sharp, symmetrical layouts",
+          "Designs that enhance the body's natural lines",
+          "Elements that feel part-organic, part-mechanical",
+          "Blade-like shapes, spines, or armor-like patterns"
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "The Rise of Futuristic Tribal Art"
+      },
+      {
+        "type": "paragraph",
+        "text": "In recent years, Neo Tribal tattoos and graphics have gained popularity among creatives and alternative subcultures. The style speaks to people drawn to aesthetics like cyberpunk, darkwear, and digital minimalism."
+      },
+      {
+        "type": "paragraph",
+        "text": "It pairs especially well with:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Cybersigilism",
+          "Geometric tattooing",
+          "Techwear fashion",
+          "Futuristic digital design"
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "text": "Neo Tribal in the MonaBaem Universe:"
+      },
+      {
+        "type": "paragraph",
+        "text": "I design Neo Tribal pieces to feel like digital armor—intentional, powerful, and expressive."
+      },
+      {
+        "type": "paragraph",
+        "text": "This aesthetic is for those who want something symbolic but abstract, primal but cybernetic. Neo Tribal is timeless in its roots, yet built for the now—and the future."
+      },
+      {
+        "type": "paragraph",
+        "text": "If you're drawn to blackwork tattoos, minimalist designs, or symbolic patterns that feel like futuristic armor, Neo Tribal might be your visual language."
+      },
+      {
+        "type": "paragraph",
+        "text": "It's more than a trend—it's a design code for the digital age."
       }
     ]
   }

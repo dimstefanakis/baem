@@ -36,9 +36,9 @@ export default function Blog() {
         <div className="relative flex flex-1 flex-col items-start justify-center sm:mt-[100px]">
           <div className="space-y-10 text-lg w-full"> {/* Increased space-y for better separation */}
             {(posts as PostPreview[]).map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`}>
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="mb-10 block">
                 <div className="w-full flex flex-col sm:flex-row min-h-[200px] items-center group">
-                  <div className="w-full sm:w-1/3 md:w-1/4 flex-shrink-0">
+                  <div className="w-full px-4 sm:w-1/3 md:w-1/4 flex-shrink-0">
                     <Image
                       src={post.primaryImage}
                       alt={post.title}
@@ -48,7 +48,7 @@ export default function Blog() {
                       priority={false}
                     />
                   </div>
-                  <div className="flex flex-col w-full h-full justify-center space-y-2 mt-4 sm:mt-0 sm:ml-6">
+                  <div className="flex px-4 flex-col w-full h-full justify-center space-y-2 mt-4 sm:mt-0 sm:ml-6">
                     <h2 className="text-2xl font-medium transition-colors duration-300" dangerouslySetInnerHTML={{ __html: post.title }}>
                     </h2>
                     <p className="text-sm font-bold">
