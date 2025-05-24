@@ -33,7 +33,7 @@ export default async function Home() {
               <BurgerMenu useBackground />
             </div>
           </div>
-          <h2 className="text-4xl text-center mb-10 mt-8">
+          <h2 className="text-4xl text-center mb-2 sm:mb-10 mt-8">
             Tattoo Designs
           </h2>
           <Link href="/shop" className="w-full flex justify-center">
